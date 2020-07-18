@@ -95,6 +95,7 @@ class Neuron():
         X = np.append(X, 1)
         Y = np.dot(self.weights, X)
         
+        # In that simple case, the activation function is just the step function
         if Y >= 1:
             return 1
         if Y < 1:
