@@ -3,6 +3,7 @@ import numpy as np
 import random as rand
 import pandas as pd
 
+plt.style.use('ggplot')
 
 
 # Number of trainingdata 
@@ -26,8 +27,8 @@ df = pd.DataFrame(columns=['X', 'Y', 'C'])
 for _ in range(N//2):
 
     for base_point in [base_point_a, base_point_b]:
-        x = rand.gauss(base_point[0], 0.68)    # second value is the standard deviation, which can interpreted as the mean wideness
-        y = rand.gauss(base_point[1], 0.8)
+        x = rand.gauss(base_point[0], 0.6)    # second value is the standard deviation, which can interpreted as the mean wideness
+        y = rand.gauss(base_point[1], 0.6)
         
         if base_point == base_point_a:
             c = 'a'    # class A
@@ -135,13 +136,24 @@ COLOR = {
 
 # Here we plot our training data as scatter plot
 
-flag = 0
+flag_a = 0
+flag_b = 0
 for x, y, c in zip(df['X'], df['Y'], df['C']):
 
-    
+    if flag_a == 0 and c == 'a':
+        plt.scatter(x, y, color=COLOR[c], alpha=0.3, label='training data class A')
+        flag_a = 1
+        continue
+        
+    if flag_b == 0 and c == 'b':
+        plt.scatter(x, y, color=COLOR[c], alpha=0.3, label='training data class B')
+        flag_b = 1
+        continue
+
+
     plt.scatter(x, y, color=COLOR[c], alpha=0.3)
     
-    flag = 1
+
     
     
     
@@ -153,11 +165,13 @@ base_point_a = (3, 2)
 base_point_b = (6, 3.5)    
  
  
-for n in range(30):
+flag_a = 0
+flag_b = 0 
+for n in range(50):
     for base_point in [base_point_a, base_point_b]:
     
-        x = rand.gauss(base_point[0], 0.8)
-        y = rand.gauss(base_point[1], 0.8)
+        x = rand.gauss(base_point[0], .6)
+        y = rand.gauss(base_point[1], .6)
         
         
         out = neuron.model_out(np.array([x, y]))
@@ -166,11 +180,23 @@ for n in range(30):
             color='green'
         else:
             color='red'
-        plt.scatter(x, y, marker='+', color=color)  # we use other marker style
+            
+        if flag_a == 0 and out == 0:
+            plt.scatter(x, y, marker='+', color=color, label='test data Class A')
+            flag_a = 1
+            continue
+            
+        if flag_b == 0 and out == 1:
+            plt.scatter(x, y, marker='+', color=color, label='test data Class B')
+            flag_b = 1
+            continue            
+        
+        plt.scatter(x, y, marker='+', color=color)  
     
-    
+plt.title('Perceptron Test')
 plt.xlabel('X')
 plt.ylabel('Y')    
+plt.legend()
     
 plt.show()
 
