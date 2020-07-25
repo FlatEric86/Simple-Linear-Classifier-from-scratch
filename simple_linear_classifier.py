@@ -74,7 +74,7 @@ class Neuron():
                 
                 m_out = self.model_out(np.array([x, y]))  # the model output with actual weights      
                                                     
-                err += (m_out - t[-1])**2                 # the absolut model error
+                err += (m_out - t[-1])**2                 # the squared model error
             
                 # alter weights by using delta rule
                 self.weights = self.weights - lr*(m_out - t[-1])
@@ -199,20 +199,5 @@ plt.ylabel('Y')
 plt.legend()
     
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
