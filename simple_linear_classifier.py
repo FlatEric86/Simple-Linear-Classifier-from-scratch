@@ -10,7 +10,7 @@ plt.style.use('ggplot')
 N = 500
 
 
-# We want to build a simple one-neuron-linear-classifier, wich is able to classify
+# We want to build a simple one-neuron-linear-classifier, which is able to classify
 # if a point p(x, y) belongs to class A or to class B, dependent by their coordinates.
 # We define the classes as gaussian distributed pointclouds around two different
 # base points.
